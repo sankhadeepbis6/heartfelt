@@ -1,12 +1,18 @@
-import './App.css'
+import styles from "./App.module.css";
+import { Routes, Route } from "react-router-dom";
+import Accept from './pages/Accept/Accept'
+import Home from './pages/Home/Home'
+import NotFound from './pages/NotFound/NotFound'
 
 function App() {
   return (
-    <>
-      <div>
-        Heartfelt App
-      </div>
-    </>
+    <div className={styles.app}>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/accept" element={<Accept />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </div>
   )
 }
 
