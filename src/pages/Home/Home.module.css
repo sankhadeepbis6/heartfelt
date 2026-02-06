@@ -57,6 +57,10 @@
   background: #ff4d6d;
   color: white;
   cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.25s ease;
+  transform-origin: center;
 }
 
 /* Slot for NO */

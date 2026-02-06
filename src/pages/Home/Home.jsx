@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import styles from "./Home.module.css";
 import HeartSvg from "./heart.svg";
 import LoveCharacter from "../../components/LoveCharacter/LoveCharacter";
@@ -8,10 +8,11 @@ import LoverName from "../../components/LoverName/LoverName";
 export default function Home() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isHeart, setIsHeart] = useState(false);
+  const [yesScale, setYesScale] = useState(1); // ❤️ NEW
 
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
-  const from = searchParams.get("from") ?? "Lovebug";
   const to = searchParams.get("to") ?? "Babe";
 
   const getRandomBetween = (min, max) =>
@@ -32,19 +33,28 @@ export default function Home() {
       ([x, y]) => !(x === a && y === b)
     );
 
-    // return any one (random)
     return filtered[Math.floor(Math.random() * filtered.length)];
   };
 
   const moveNoButton = () => {
-    const mul = getDifferentCombination(
-      [position.x, position.y]
-    );
+    const mul = getDifferentCombination([position.x, position.y]);
 
-    const x = getRandomBetween(50, 150) * mul[0];
-    const y = getRandomBetween(50, 150) * mul[1];
+    const x = getRandomBetween(80, 160) * mul[0];
+    const y = getRandomBetween(80, 160) * mul[1];
 
     setPosition({ x, y });
+
+    // 💖 YES BUTTON GROWS (WITH MAX LIMIT)
+    setYesScale(prev => {
+      const MAX_SCALE = 2.5;
+      const STEP = 0.08;
+      return Math.min(prev + STEP, MAX_SCALE);
+    });
+  };
+
+  const handleYes = () => {
+    // Navigate to the / path
+    navigate('/accept?' + searchParams.toString());
   };
 
   return (
@@ -66,8 +76,13 @@ export default function Home() {
         <div className={styles.buttons}>
           <button
             className={styles.yes}
+            style={{ transform: `scale(${yesScale})` }}
             onMouseEnter={() => setIsHeart(true)}
-            onMouseLeave={() => setIsHeart(false)}>Yes 💘</button>
+            onMouseLeave={() => setIsHeart(false)}
+            onClick={handleYes}
+          >
+            Yes 💘
+          </button>
 
           <div className={styles.noSlot}>
             <div className={styles.placeholder}></div>
