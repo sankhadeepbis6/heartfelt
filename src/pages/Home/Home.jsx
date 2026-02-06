@@ -54,7 +54,7 @@ export default function Home() {
 
   const handleYes = () => {
     // Navigate to the / path
-    navigate('/accept?' + searchParams.toString());
+    navigate('/heartfelt/accept?' + searchParams.toString());
   };
 
   return (

@@ -8,8 +8,8 @@ function App() {
   return (
     <div className={styles.app}>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/accept" element={<Accept />} />
+        <Route path="/heartfelt" element={<Home />} />
+        <Route path="/heartfelt/accept" element={<Accept />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
