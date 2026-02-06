@@ -1,0 +1,88 @@
+.container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* SVG */
+.heart {
+  width: 120px; /* ✅ fixed */
+  height: auto;
+  margin-bottom: 20px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.text {
+  color: #b30059;
+  margin-bottom: 30px;
+}
+
+/* Centers button group as a unit */
+.buttonWrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Yes + No layout */
+.buttons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+}
+
+/* YES */
+.yes {
+  padding: 12px 28px;
+  font-size: 18px;
+  border-radius: 30px;
+  border: none;
+  background: #ff4d6d;
+  color: white;
+  cursor: pointer;
+}
+
+/* Slot for NO */
+.noSlot {
+  position: relative;
+  width: 110px;
+  height: 48px;
+}
+
+/* Invisible placeholder */
+.placeholder {
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
+}
+
+/* NO button aligned perfectly */
+.no {
+  position: absolute;
+  inset: 0;
+  padding: 12px 28px;
+  font-size: 18px;
+  border-radius: 30px;
+  border: none;
+  background: #e0e0e0;
+  color: #444;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
