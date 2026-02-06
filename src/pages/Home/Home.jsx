@@ -67,6 +67,7 @@ export default function Home() {
                 transform: `translate(${position.x}px, ${position.y}px)`
               }}
               onMouseEnter={moveNoButton}
+              onPointerDown={moveNoButton}
             >
               No 💔
             </button>

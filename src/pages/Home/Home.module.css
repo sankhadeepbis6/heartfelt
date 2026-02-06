@@ -83,6 +83,8 @@
   border: none;
   background: #e0e0e0;
   color: #444;
+  touch-action: manipulation;
   cursor: pointer;
   transition: transform 0.25s ease-out;
+  z-index: 2;
 }
