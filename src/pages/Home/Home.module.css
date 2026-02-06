@@ -84,5 +84,5 @@
   background: #e0e0e0;
   color: #444;
   cursor: pointer;
-  transition: transform 0.15s ease;
+  transition: transform 0.25s ease-out;
 }
