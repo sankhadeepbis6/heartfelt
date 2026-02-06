@@ -5,6 +5,7 @@ import LoveCharacter from "../../components/LoveCharacter/LoveCharacter";
 
 export default function Home() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isHeart, setIsHeart] = useState(false);
 
   const getRandomBetween = (min, max) =>
     Math.floor(Math.random() * (max - min + 1)) + min;
@@ -41,7 +42,7 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      <LoveCharacter height={150} width={150} isHeart>
+      <LoveCharacter height={150} width={150} isHeart={isHeart}>
         <img
           src={HeartSvg}
           alt="heart"
@@ -56,7 +57,10 @@ export default function Home() {
       {/* Center wrapper */}
       <div className={styles.buttonWrapper}>
         <div className={styles.buttons}>
-          <button className={styles.yes}>Yes 💘</button>
+          <button
+            className={styles.yes}
+            onMouseEnter={() => setIsHeart(true)}
+            onMouseLeave={() => setIsHeart(false)}>Yes 💘</button>
 
           <div className={styles.noSlot}>
             <div className={styles.placeholder}></div>

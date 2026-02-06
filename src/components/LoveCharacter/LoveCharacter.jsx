@@ -10,15 +10,15 @@ const LoveCharacter = ({
 	height = 200,
 	width = 200,
 	isHeart = false,
-	heartCount = 50,   // 👈 configurable meter
+	heartCount = 28,
 	children
 }) => {
 	const hearts = useMemo(() => {
-		const duration = 7; // seconds (must match CSS)
+		const duration = 7;
 
 		return Array.from({ length: heartCount }).map((_, i) => {
-			const angle = pseudoRandom(i + 1) * 90 - 45; // -45° to +45°
-			const distance = 650 + pseudoRandom(i + 10) * 300; // VERY far up
+			const angle = pseudoRandom(i + 1) * 90 - 45;
+			const distance = 650 + pseudoRandom(i + 10) * 300;
 
 			return {
 				id: i,
@@ -33,19 +33,17 @@ const LoveCharacter = ({
 
 	return (
 		<div className={styles.wrapper} style={{ height, width }}>
-			{isHeart && (
-				<div className={styles.heartLayer}>
-					{hearts.map((h) => (
-						<span
-							key={h.id}
-							className={styles.heart}
-							style={h.style}
-						>
-							❤️
-						</span>
-					))}
-				</div>
-			)}
+			{/* Hearts ALWAYS mounted */}
+			<div
+				className={`${styles.heartLayer} ${isHeart ? styles.active : styles.inactive
+					}`}
+			>
+				{hearts.map((h) => (
+					<span key={h.id} className={styles.heart} style={h.style}>
+						❤️
+					</span>
+				))}
+			</div>
 
 			<div className={styles.character}>{children}</div>
 		</div>

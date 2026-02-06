@@ -5,34 +5,48 @@
   justify-content: center;
 }
 
-/* Character stays on top */
 .character {
   position: relative;
   z-index: 2;
 }
 
-/* Heart animation layer */
+/* Heart layer */
 .heartLayer {
   position: absolute;
   inset: 0;
-  z-index: 1;
   pointer-events: none;
   overflow: visible;
+
+  transition: opacity 0.8s ease;
 }
 
-/* Heart base */
+/* ON */
+.active {
+  opacity: 1;
+}
+
+/* OFF (exit animation happens naturally) */
+.inactive {
+  opacity: 0;
+}
+
+/* Heart */
 .heart {
   position: absolute;
   left: 50%;
-  top: 55%; /* chest origin */
+  top: 55%;
   font-size: 20px;
-  opacity: 0;
 
   transform-origin: center;
   animation: floatHeart 7s linear infinite;
+  animation-play-state: paused; /* default paused */
 }
 
-/* Continuous floating animation */
+/* When active → animate */
+.active .heart {
+  animation-play-state: running;
+}
+
 @keyframes floatHeart {
   0% {
     transform: translate3d(-50%, -50%, 0) rotate(var(--angle)) scale(0.6);
