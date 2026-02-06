@@ -1,0 +1,45 @@
+.name {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  font-weight: 600;
+  color: #e63973;
+
+  text-shadow:
+    0 0 6px rgba(230, 57, 115, 0.4),
+    0 0 12px rgba(230, 57, 115, 0.2);
+
+  animation: softPulse 2.5s ease-in-out infinite;
+}
+
+.heart {
+  color: #ff4d6d;
+  font-size: 0.9em; /* relative → doesn't change text size */
+  animation: beat 1.5s infinite;
+}
+
+@keyframes softPulse {
+  0%,
+  100% {
+    text-shadow:
+      0 0 6px rgba(230, 57, 115, 0.4),
+      0 0 12px rgba(230, 57, 115, 0.2);
+  }
+  50% {
+    text-shadow:
+      0 0 10px rgba(230, 57, 115, 0.6),
+      0 0 20px rgba(230, 57, 115, 0.35);
+  }
+}
+
+@keyframes beat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+}

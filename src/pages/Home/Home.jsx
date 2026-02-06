@@ -1,11 +1,18 @@
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import styles from "./Home.module.css";
 import HeartSvg from "./heart.svg";
 import LoveCharacter from "../../components/LoveCharacter/LoveCharacter";
+import LoverName from "../../components/LoverName/LoverName";
 
 export default function Home() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isHeart, setIsHeart] = useState(false);
+
+  const [searchParams] = useSearchParams();
+
+  const from = searchParams.get("from") ?? "Lovebug";
+  const to = searchParams.get("to") ?? "Babe";
 
   const getRandomBetween = (min, max) =>
     Math.floor(Math.random() * (max - min + 1)) + min;
@@ -51,7 +58,7 @@ export default function Home() {
       </LoveCharacter>
 
       <h1 className={styles.text}>
-        &lt;name&gt; will you be my valentine? 💖
+        <LoverName>{to}</LoverName> will you be my valentine?
       </h1>
 
       {/* Center wrapper */}
