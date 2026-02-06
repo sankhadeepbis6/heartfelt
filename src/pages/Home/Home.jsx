@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styles from "./Home.module.css";
 import HeartSvg from "./heart.svg";
+import LoveCharacter from "../../components/LoveCharacter/LoveCharacter";
 
 export default function Home() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -40,11 +41,13 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      <img
-        src={HeartSvg}
-        alt="heart"
-        className={styles.heart}
-      />
+      <LoveCharacter height={150} width={150} isHeart>
+        <img
+          src={HeartSvg}
+          alt="heart"
+          className={styles.heart}
+        />
+      </LoveCharacter>
 
       <h1 className={styles.text}>
         &lt;name&gt; will you be my valentine? 💖
