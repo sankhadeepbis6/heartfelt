@@ -79,7 +79,7 @@
 
 /* NO button aligned perfectly */
 .no {
-  position: absolute;
+  /* position: absolute; */
   inset: 0;
   padding: 12px 28px;
   font-size: 18px;
@@ -91,4 +91,63 @@
   cursor: pointer;
   transition: transform 0.25s ease-out;
   z-index: 2;
+  position: relative;
+  transform-origin: center center; /* 🔒 lock blast origin */
+}
+
+@keyframes poofBlast {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+    filter: blur(0);
+  }
+  40% {
+    transform: scale(1.4) rotate(8deg);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(2.2) rotate(-12deg);
+    opacity: 0;
+    filter: blur(10px);
+  }
+}
+
+.poof {
+  animation: poofBlast 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  pointer-events: none;
+}
+
+.noMover {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+
+  transition: transform 0.25s ease-out; /* ✅ restore motion */
+}
+
+.noMover > button {
+  pointer-events: auto;
+}
+
+.no.poof::after {
+  content: "";
+  position: absolute;
+  inset: -20px;
+  border-radius: 50%;
+  border: 3px solid rgba(0, 0, 0, 0.15);
+  animation: smokeRing 0.45s ease-out forwards;
+}
+
+@keyframes smokeRing {
+  from {
+    transform: scale(0.3);
+    opacity: 0.6;
+  }
+  to {
+    transform: scale(1.4);
+    opacity: 0;
+  }
 }

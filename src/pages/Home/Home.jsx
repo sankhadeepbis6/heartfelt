@@ -9,6 +9,8 @@ export default function Home() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isHeart, setIsHeart] = useState(false);
   const [yesScale, setYesScale] = useState(1); // ❤️ NEW
+  const [noHoverCount, setNoHoverCount] = useState(0);
+  const [isNoGone, setIsNoGone] = useState(false);
 
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -37,6 +39,22 @@ export default function Home() {
   };
 
   const moveNoButton = () => {
+    if (isNoGone) return;
+
+    const MAX_HOVERS = 6;
+
+    // 🔒 Calculate next hover count synchronously
+    const nextHover = noHoverCount + 1;
+
+    setNoHoverCount(nextHover);
+
+    // 💨 If this hover triggers poof → DO NOTHING ELSE
+    if (nextHover >= MAX_HOVERS) {
+      setIsNoGone(true);
+      return; // ⛔ absolutely no movement
+    }
+
+    // 🏃‍♂️ Move only if NOT poofing
     const mul = getDifferentCombination([position.x, position.y]);
 
     const x = getRandomBetween(80, 160) * mul[0];
@@ -44,12 +62,8 @@ export default function Home() {
 
     setPosition({ x, y });
 
-    // 💖 YES BUTTON GROWS (WITH MAX LIMIT)
-    setYesScale(prev => {
-      const MAX_SCALE = 2.5;
-      const STEP = 0.08;
-      return Math.min(prev + STEP, MAX_SCALE);
-    });
+    // ❤️ YES still grows
+    setYesScale(prev => Math.min(prev + 0.08, 2.5));
   };
 
   const handleYes = () => {
@@ -87,16 +101,26 @@ export default function Home() {
           <div className={styles.noSlot}>
             <div className={styles.placeholder}></div>
 
-            <button
-              className={styles.no}
-              style={{
-                transform: `translate(${position.x}px, ${position.y}px)`
-              }}
-              onMouseEnter={moveNoButton}
-              onPointerDown={moveNoButton}
-            >
-              No 💔
-            </button>
+            {!isNoGone && (
+              <div
+                className={styles.noMover}
+                style={{
+                  transform: `translate(${position.x}px, ${position.y}px)`
+                }}
+              >
+                <button
+                  className={`${styles.no} ${noHoverCount >= 5 ? styles.poof : ""
+                    }`}
+                  style={{
+                    transform: `scale(${Math.max(1 - noHoverCount * 0.12, 0)})`
+                  }}
+                  onMouseEnter={moveNoButton}
+                  onPointerDown={moveNoButton}
+                >
+                  No 💔
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
